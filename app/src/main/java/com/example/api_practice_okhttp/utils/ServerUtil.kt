@@ -1,6 +1,8 @@
 package com.example.api_practice_okhttp.utils
 
+import android.util.Log
 import okhttp3.*
+import org.json.JSONObject
 import java.io.IOException
 
 class ServerUtil {
@@ -56,7 +58,15 @@ class ServerUtil {
 
 //                    응답 : response 변수 > 응답의 본문() 만 보자.
 
-                    val bodyString = response.body!!.string() // toString() 아님!
+                    val bodyString = response.body!!.string() // toString() 아님!, String() 기능은 1회용. 변수에 담아두고 사용
+
+//                    응답의 본문을 String으로 변환하면, JSON Encoding 적용된 상태. (한글 깨짐)
+//                    JSONObject 객체로 응답본문 String을 변환해주면, 한글이 복구됨.
+//                      => UI에서도 JSONObject를 이용해서, 데이터 추출 / 실제 활용
+
+                    val jsonObj = JSONObject( bodyString )
+
+                    Log.d("서버테스트", jsonObj.toString())
 
                 }
 
