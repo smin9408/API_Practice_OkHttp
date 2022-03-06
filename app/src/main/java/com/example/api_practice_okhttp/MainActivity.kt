@@ -8,7 +8,7 @@ import com.example.api_practice_okhttp.databinding.ActivityMainBinding
 import com.example.api_practice_okhttp.utils.ServerUtil
 import org.json.JSONObject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     lateinit var binding: ActivityMainBinding
 
@@ -16,10 +16,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setupEvents()
-        setvalues()
+        setValues()
     }
 
-    fun setupEvents() {
+    override fun setupEvents() {
         binding.btnLogin.setOnClickListener {
 
 //            id / pw 추출
@@ -60,6 +60,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun setvalues() {}
+    override fun setValues() {
+
+    }
 
 }
