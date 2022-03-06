@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.api_practice_okhttp.databinding.ActivitySignUpBinding
 import com.example.api_practice_okhttp.utils.ServerUtil
+import org.json.JSONObject
 
 class SignUpActivity : BaseActivity() {
 
@@ -20,20 +21,29 @@ class SignUpActivity : BaseActivity() {
 
     override fun setupEvents() {
 
-         binding.btnSignUP.setOnClickListener {
+        binding.btnSignUP.setOnClickListener {
 
-             val inputEmail = binding.edtEmail.text.toString()
-             val inputPw = binding.edtPassword.text.toString()
-             val inputNickname = binding.edtNickname.text.toString()
+            val inputEmail = binding.edtEmail.text.toString()
+            val inputPw = binding.edtPassword.text.toString()
+            val inputNickname = binding.edtNickname.text.toString()
 
-             ServerUtil.
+            ServerUtil.putRequestSignUp(
+                inputEmail,
+                inputPw,
+                inputNickname,
+                object : ServerUtil.JsonResponseHandler {
+                    override fun onResponse(jsonObj: JSONObject) {
 
-         }
+                    }
+
+                }
+            )
+
+        }
     }
 
     override fun setValues() {
     }
-
 
 
 }
