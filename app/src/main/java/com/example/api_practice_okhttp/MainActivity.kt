@@ -1,5 +1,6 @@
 package com.example.api_practice_okhttp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -20,6 +21,15 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        binding.btnSignUp.setOnClickListener {
+
+//            단순 화면 이동
+            val myIntent = Intent(mContext, SignUpActivity::class.java)
+            startActivity(myIntent)
+        }
+
+
         binding.btnLogin.setOnClickListener {
 
 //            id / pw 추출
