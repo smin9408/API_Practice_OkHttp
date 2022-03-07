@@ -22,6 +22,14 @@ class LoginActivity : BaseActivity() {
 
     override fun setupEvents() {
 
+//        체크박스의 체크 여부가 변경되면 (이벤트 처리) > ContextUtil 이용, 체크 값 저장
+        binding.autoLoginCheckBox.setOnCheckedChangeListener { compoundButton, isCheked ->
+
+
+
+        }
+
+
         binding.btnSignUp.setOnClickListener {
 
 //            단순 화면 이동
