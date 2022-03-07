@@ -183,7 +183,30 @@ class ServerUtil {
 
         fun getRequestMyInfo(context: Context, handler: JsonResponseHandler) {
 
-            ContextUtil.getToken(context)
+            val urlBuilder = "${BASE_URL}/user_info".toHttpUrlOrNull()!!.newBuilder()
+                .build() // 쿼리파라미터를 담을게 없다. 바로 build로 마무리.
+
+            val urlString = urlBuilder.toString()
+
+            val request = Request.Builder()
+                .url(urlString)
+                .get()
+                .header("X-Http-Token", ContextUtil.getToken(context)) // ContextUtil을 통해, 저장된 토큰을 받아서 첨부
+                .build()
+
+            val client = OkHttpClient()
+
+            client.newCall(request).enqueue(object :Callback{
+                override fun onFailure(call: Call, e: IOException) {
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+
+                    val jsonObj = JSONObject(response.body!!.string())
+
+                    handler?.onResponse(jsonObj)
+                }
+            })
 
         }
     }
