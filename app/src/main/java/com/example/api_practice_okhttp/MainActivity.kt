@@ -68,7 +68,7 @@ class MainActivity : BaseActivity() {
 //                    TopicData 변수 생성 => 멤버변수에, topicObj가 들고있는 값들을 대입.
                     val topicData = TopicData()
                     topicData.id = topicObj.getInt("id")
-                    topicData.title = topicObj.getString("tile")
+                    topicData.title = topicObj.getString("title")
                     topicData.imageURL = topicObj.getString("img_url")
                     topicData.replyCount = topicObj.getInt("reply_count")
                     
