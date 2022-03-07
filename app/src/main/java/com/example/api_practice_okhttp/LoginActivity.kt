@@ -25,7 +25,9 @@ class LoginActivity : BaseActivity() {
 //        체크박스의 체크 여부가 변경되면 (이벤트 처리) > ContextUtil 이용, 체크 값 저장
         binding.autoLoginCheckBox.setOnCheckedChangeListener { compoundButton, isCheked ->
 
-
+//            연습문제. ContextUtil을 이용해서, true로 변경되면 자동로그인 값도 true로 저장.
+//            false로 되면, 자동로그인 값도 false로 저장.
+            ContextUtil.setAutoLogin(mContext, isCheked)
 
         }
 
@@ -63,7 +65,8 @@ class LoginActivity : BaseActivity() {
                         val nickname = userObj.getString("nick_name")
 
                         runOnUiThread {
-                            Toast.makeText(mContext, "${nickname}님 환영합니다.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(mContext, "${nickname}님 환영합니다.", Toast.LENGTH_SHORT)
+                                .show()
                         }
 
 //                        서버가 내려준 토큰값을 변수에 담아보자.
