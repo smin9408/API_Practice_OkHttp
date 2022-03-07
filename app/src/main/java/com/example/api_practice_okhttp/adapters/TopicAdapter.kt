@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import com.example.api_practice_okhttp.R
 import com.example.api_practice_okhttp.datas.TopicData
 
@@ -22,6 +23,12 @@ class TopicAdapter(
         }
 
         val row = tempRow!!
+
+        val data = mList[position]
+
+        val txtTilte = row.findViewById<TextView>(R.id.txtTitle)
+
+        txtTilte.text = data.title
 
         return row
     }
