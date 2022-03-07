@@ -2,7 +2,9 @@ package com.example.api_practice_okhttp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import com.example.api_practice_okhttp.databinding.ActivitySignUpBinding
 import com.example.api_practice_okhttp.utils.ServerUtil
@@ -21,6 +23,11 @@ class SignUpActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        binding.edtEmail.addTextChangedListener {
+            Log.d("입력내용", it.toString())
+
+        }
 
         binding.btnEmailCheck.setOnClickListener {
 
