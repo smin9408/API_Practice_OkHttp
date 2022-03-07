@@ -1,21 +1,20 @@
 package com.example.api_practice_okhttp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import com.example.api_practice_okhttp.databinding.ActivityMainBinding
+import com.example.api_practice_okhttp.databinding.ActivityLoginBinding
 import com.example.api_practice_okhttp.utils.ServerUtil
 import org.json.JSONObject
 
-class MainActivity : BaseActivity() {
+class LoginActivity : BaseActivity() {
 
-    lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         setupEvents()
         setValues()
     }
