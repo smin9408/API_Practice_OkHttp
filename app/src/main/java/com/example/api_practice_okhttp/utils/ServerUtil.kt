@@ -1,5 +1,6 @@
 package com.example.api_practice_okhttp.utils
 
+import android.content.Context
 import android.util.Log
 import okhttp3.*
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
@@ -132,7 +133,7 @@ class ServerUtil {
         }
 
         //        이메일 or 닉네임 중복 검사 함수
-        fun GetRequestDuplicatedCheck(
+        fun getRequestDuplicatedCheck(
             type: String,
             inputValue: String,
             handler: JsonResponseHandler?
@@ -157,7 +158,7 @@ class ServerUtil {
 //            3) Request 완성 > 서버에 호출, 응답을 화면에 넘기자.
             val client = OkHttpClient()
 
-            client.newCall(request).enqueue(object : Callback{
+            client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
 
                 }
@@ -171,6 +172,18 @@ class ServerUtil {
                 }
 
             })
+
+        }
+
+//        연습 : 내 정보 불러오기 (/user_info - GET)
+
+//        토큰은, ContextUtil 클래스에서 getToken 함수로 꺼내올 수 있다.
+//        토큰 값 자체는 파라미터로 받아올 필요 없다. => ContextUtil을 불러다 사용하자.
+//        메모장에 접근할 수 있게, Context 변수 하나를 미리 받아두자.
+
+        fun getRequestMyInfo(context: Context, handler: JsonResponseHandler) {
+
+            ContextUtil.getToken(context)
 
         }
     }

@@ -1,8 +1,6 @@
 package com.example.api_practice_okhttp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
@@ -43,7 +41,7 @@ class SignUpActivity : BaseActivity() {
 //            서버의 죽복확인 기능 (/User_check - GET) API 활용 => ServerUtil에 함수 추가, 가져다 활용
 //            그 응답 code값에 따라 다른 문구 배치.
 
-            ServerUtil.GetRequestDuplicatedCheck("EMAIL", inputEamil, object : ServerUtil.JsonResponseHandler{
+            ServerUtil.getRequestDuplicatedCheck("EMAIL", inputEamil, object : ServerUtil.JsonResponseHandler{
                 override fun onResponse(jsonObj: JSONObject) {
 
 //                    code 값에 따라 이메일 사용 가능 여부.
@@ -68,7 +66,7 @@ class SignUpActivity : BaseActivity() {
 
             val inputNickname = binding.edtNickname.text.toString()
 
-            ServerUtil.GetRequestDuplicatedCheck("NICK_NAME", inputNickname, object : ServerUtil.JsonResponseHandler{
+            ServerUtil.getRequestDuplicatedCheck("NICK_NAME", inputNickname, object : ServerUtil.JsonResponseHandler{
                 override fun onResponse(jsonObj: JSONObject) {
 
                     val code = jsonObj.getInt("code")
