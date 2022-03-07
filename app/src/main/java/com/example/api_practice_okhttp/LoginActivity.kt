@@ -90,6 +90,8 @@ class LoginActivity : BaseActivity() {
 
     override fun setValues() {
 
+//        이전에 설정한 자동로그인 여부를 미리 체크해두자.
+
     }
 
 }
