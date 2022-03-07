@@ -2,6 +2,7 @@ package com.example.api_practice_okhttp.utils
 
 import android.util.Log
 import okhttp3.*
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.json.JSONObject
 import java.io.IOException
 
@@ -112,7 +113,7 @@ class ServerUtil {
                 .build()
 
             val client = OkHttpClient()
-            client.newCall(request).enqueue(object : Callback{
+            client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
                 }
 
@@ -120,13 +121,34 @@ class ServerUtil {
 
                     val bodyString = response.body!!.string()
                     val jsonObj = JSONObject(bodyString)
-                    Log.d("서버응답",jsonObj.toString())
+                    Log.d("서버응답", jsonObj.toString())
                     handler?.onResponse(jsonObj)
 
                 }
 
 
             })
+
+        }
+
+        //        이메일 or 닉네임 중복 검사 함수
+        fun GetRequestDuplicatedCheck(
+            type: String,
+            inputValue: String,
+            handler: JsonResponseHandler?
+        ) {
+//          1) 어느 주소로 가야하는가? + 어떤 파라미터를 첨부하는가? 도 주소에 같이 포함.
+//                => 라이브러리의 도움을 받자. HttpUrl 클래스 (OkHttp 소속)
+//            val urlBuilder = HttpUrl.parse("${BASE_URL}/user_check") Alt + Enter 로 parse부분 바꿔주기
+            val urlBuilder = "${BASE_URL}/user_check".toHttpUrlOrNull()!!.newBuilder()
+                .addEncodedQueryParameter("type", type)
+                .addEncodedQueryParameter("value", inputValue)
+                .build()
+
+
+            val urlString = urlBuilder.toString()
+
+            Log.d("완성된 URL", urlString)
 
         }
     }
