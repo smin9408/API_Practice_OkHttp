@@ -33,6 +33,12 @@ class MainActivity : BaseActivity() {
 
     override fun setupEvents() {
 
+        binding.topicListView.setOnItemClickListener { adapterView, view, position, l ->
+
+            val clickedTopic = mTopicList[position]
+
+        }
+
         binding.btnLogout.setOnClickListener {
 
             val alert = AlertDialog.Builder(mContext)
