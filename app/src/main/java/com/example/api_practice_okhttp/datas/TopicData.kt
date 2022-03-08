@@ -25,6 +25,21 @@ class TopicData : Serializable {
             topicData.imageURL = jsonObj.getString("img_url")
             topicData.replyCount = jsonObj.getInt("reply_count")
 
+//            sides라는 JSONArray가 들어있음.
+//              => topicData의 하위 정보로, 선택진영 목록으로 저장.
+//              => JSONArray > ArrayList
+            val sidesArr = jsonObj.getJSONArray("sides")
+
+            for(i in 0 until sidesArr.length()){
+
+//                선택 진영 정보를 들고있는 JSONObject 추출
+                val sideObj = sidesArr.getJSONObject(i)
+
+//                sideObj도, SideData로 (선택 진영) 변환
+
+            }
+
+
 //            완성된 TopicData 리턴
             return topicData
         }
