@@ -30,6 +30,7 @@ class TopicAdapter(
 
         val txtTilte = row.findViewById<TextView>(R.id.txtTitle)
         val imgTopicBackground = row.findViewById<ImageView>(R.id.imgBackground)
+        val txtReplyCount = row.findViewById<TextView>(R.id.txtReplyCount)
 
         txtTilte.text = data.title
 
@@ -37,6 +38,8 @@ class TopicAdapter(
 //        imageURL 변수 파싱 => 이미지의 인터넷 주소.
 //        웹에 있는 이미지 > 이미지뷰에 적용 > Glide 라이브러리
         Glide.with(mContext).load(data.imageURL).into(imgTopicBackground)
+
+        txtReplyCount.text = "${data.replyCount}명 참여중!"
 
 
 
