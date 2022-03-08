@@ -1,10 +1,11 @@
 package com.example.api_practice_okhttp.datas
 
 import org.json.JSONObject
+import java.io.Serializable
 
 // 토론의 선택 진영을 표현.
 
-class SideData {
+class SideData : Serializable{
     var id = 0
     var title = ""
     var voteCount = 0
