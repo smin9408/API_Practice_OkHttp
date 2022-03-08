@@ -1,6 +1,8 @@
 package com.example.api_practice_okhttp.datas
 
-class TopicData {
+import java.io.Serializable
+
+class TopicData : Serializable {
 
     var id = 0 // id는 Int라고 명시.
     var title = "" // title은 String이라고 명시.
