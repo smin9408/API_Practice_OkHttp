@@ -6,13 +6,15 @@ import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.example.api_practice_okhttp.databinding.ActivityViewTopicDetailBinding
 import com.example.api_practice_okhttp.datas.TopicData
+import com.example.api_practice_okhttp.utils.ServerUtil
+import org.json.JSONObject
 
 class ViewTopicDetailActivity : BaseActivity() {
 
     lateinit var binding: ActivityViewTopicDetailBinding
 
-//    보여주게 될 토론 주제 데이터 > 이벤트처리, 데이터 표현 등 여러 함수에서 사용
-    lateinit var mTopicData : TopicData
+    //    보여주게 될 토론 주제 데이터 > 이벤트처리, 데이터 표현 등 여러 함수에서 사용
+    lateinit var mTopicData: TopicData
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,5 +31,16 @@ class ViewTopicDetailActivity : BaseActivity() {
 
         binding.txtTitle.text = mTopicData.title
         Glide.with(mContext).load(mTopicData.imageURL).into(binding.imgTopicBackground)
+
+        getTopicDetailFromServer()
+    }
+
+    fun getTopicDetailFromServer() {
+
+        ServerUtil.getRequestTopicDetail(mContext, mTopicData.id, object : ServerUtil.JsonResponseHandler{
+            override fun onResponse(jsonObj: JSONObject) {
+
+            }
+        })
     }
 }
