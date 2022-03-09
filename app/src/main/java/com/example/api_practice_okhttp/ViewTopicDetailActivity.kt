@@ -44,6 +44,11 @@ class ViewTopicDetailActivity : BaseActivity() {
 //        1번진영 제목, 2반진영 제목
         binding.txtSide01.text = mTopicData.sideList[0].title
         binding.txtSide02.text = mTopicData.sideList[1].title
+
+//        1번진영 특표 수, 2번진영 특표 수
+        binding.txtVoteCount1.text = "${mTopicData.sideList[0].voteCount}표"
+        binding.txtVoteCount2.text = "${mTopicData.sideList[1].voteCount}표"
+
     }
 
     fun getTopicDetailFromServer() {
