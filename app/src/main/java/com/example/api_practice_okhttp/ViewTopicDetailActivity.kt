@@ -1,5 +1,6 @@
 package com.example.api_practice_okhttp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -32,6 +33,22 @@ class ViewTopicDetailActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        binding.btnPostReply.setOnClickListener {
+
+//            투표를 하지 않은 상태라면, 댓글 작성도 불가.
+            if (mTopicData.mySelectedSide == null) {
+                Toast.makeText(mContext, "투표먼저 하세요.", Toast.LENGTH_SHORT).show()
+
+//                클릭 이벤트 자체를 강제 종료. (Intent 실행을 막자)
+                return@setOnClickListener // return : 함수의 결과를 지정 => 그 뒤의 코드는 실행 X. => 함수 강제 종료.
+            }
+
+            val myIntent = Intent(mContext, EditReplyActivity::class.java)
+            myIntent.putExtra("topic", mTopicData)
+            startActivity(myIntent)
+
+        }
 
 //        btnVote1 클릭 => 첫 진영의 id값을 찾아서, 거기에 투표
 //        서버에 전달 => API활용.
