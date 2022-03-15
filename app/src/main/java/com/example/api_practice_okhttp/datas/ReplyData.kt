@@ -13,12 +13,30 @@ class ReplyData(
 
     var selectedSide = SideData() // 모든 댓글에는 선택한 진영이 있다. null 가능성 X.
 
-//    작성 일시를 담아둘 변수
+    //    작성 일시를 담아둘 변수
 //    일 / 시 데이터를 변경 => 내부의 숫자만 변경. 변수에 새 객체 대입 X => val로 써도 됨.
     val createdAt = Calendar.getInstance()
 
     //    보조 생성자 추가 연습 : 파라미터 X
     constructor() : this(0, "내용없음")
+
+    //    각 댓글이 자신의 작성일시를, 핸드폰 시간대에 맞게 보정. + 가공된 문구로 내보내기
+    fun getFormattedCreatedAt(): String {
+
+//          가공 양식 지정
+        val sdf = SimpleDateFormat("M월 d일 a h시 m분")
+
+//    시차 보정에 사용할 Calendar 변수 (워래 있는 createdAt은 놔두고, 별도로 추가)
+//    내 폰시간대(local)에 맞게 보정 예정
+        val localCal = Calendar.getInstance()
+
+//    작성일시의 일시값을 그대로 복사 (원래값 : 현재 일시)
+        localCal.time = this.createdAt.time
+
+        return sdf.format(localCal.time)
+
+
+    }
 
     companion object {
 
@@ -47,13 +65,13 @@ class ReplyData(
 //            CreatedAt 변수의 일시 값으로 => parse 결과물 사용.
 
 //            서버가 주는 양식을 보고, 그대로 적자
-            val sdf = SimpleDateFormat( "yyyy-MM-dd HH:mm:ss")
+            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 
 //            created_at으로 내려오는 문구.
             val createdAtStr = jsonObj.getString("created_at")
 
 //            createdAtStr 변수를 => Date로 변경 (parse) => Calendar의 time에 대입.
-            replyData.createdAt.time = sdf.parse( createdAtStr )
+            replyData.createdAt.time = sdf.parse(createdAtStr)
 
 
             return replyData
