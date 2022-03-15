@@ -32,22 +32,24 @@ class ViewTopicDetailActivity : BaseActivity() {
         binding.btnVote1.setOnClickListener {
 
 //            서버의 투표 API 호출
-            ServerUtil.postRequestVote(mContext, mTopicData.sideList[0].id, object : ServerUtil.JsonResponseHandler{
-                override fun onResponse(jsonObj: JSONObject) {
+            ServerUtil.postRequestVote(
+                mContext,
+                mTopicData.sideList[0].id,
+                object : ServerUtil.JsonResponseHandler {
+                    override fun onResponse(jsonObj: JSONObject) {
 
 //                    토스트로, 서버가 알려준 현재 상황 (신규 투표 or 재투표 or 취소 등)
-                    val message = jsonObj.getString("message")
+                        val message = jsonObj.getString("message")
 
-                    runOnUiThread {
-                        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
-                    }
+                        runOnUiThread {
+                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+                        }
 
 //                    변경된 득표 현황을 다시 불러오자.
-                    getTopicDetailFromServer()
-                }
+                        getTopicDetailFromServer()
+                    }
 
-            })
-
+                })
 
 
 //           투표 현황 새로고침 (응답)
@@ -57,22 +59,24 @@ class ViewTopicDetailActivity : BaseActivity() {
         binding.btnVote2.setOnClickListener {
 
 //            서버의 투표 API 호출
-            ServerUtil.postRequestVote(mContext, mTopicData.sideList[1].id, object : ServerUtil.JsonResponseHandler{
-                override fun onResponse(jsonObj: JSONObject) {
+            ServerUtil.postRequestVote(
+                mContext,
+                mTopicData.sideList[1].id,
+                object : ServerUtil.JsonResponseHandler {
+                    override fun onResponse(jsonObj: JSONObject) {
 
 //                    토스트로, 서버가 알려준 현재 상황 (신규 투표 or 재투표 or 취소 등)
-                    val message = jsonObj.getString("message")
+                        val message = jsonObj.getString("message")
 
-                    runOnUiThread {
-                        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
-                    }
+                        runOnUiThread {
+                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+                        }
 
 //                    변경된 득표 현황을 다시 불러오자.
-                    getTopicDetailFromServer()
-                }
+                        getTopicDetailFromServer()
+                    }
 
-            })
-
+                })
 
 
 //           투표 현황 새로고침 (응답)
@@ -88,7 +92,7 @@ class ViewTopicDetailActivity : BaseActivity() {
         getTopicDetailFromServer()
     }
 
-    fun setTopicDataToUi(){
+    fun setTopicDataToUi() {
 //        토론 주제에 대한 데이터들을, UI에 반영하는 함수.
 //
 
@@ -103,29 +107,55 @@ class ViewTopicDetailActivity : BaseActivity() {
         binding.txtVoteCount1.text = "${mTopicData.sideList[0].voteCount}표"
         binding.txtVoteCount2.text = "${mTopicData.sideList[1].voteCount}표"
 
+//        내가 선택한 진영이 있을 때, (투표 해놨을 때)
+//        이미 투표한 진영은 문구를 변경하자. ("투표 취소")
+
+        if (mTopicData.mySelectedSide != null) {
+
+//            첫번째 진영을 투표했는지?
+//            두번째 진영을 투표했는지?
+
+            if (mTopicData.mySelectedSide!!.id == mTopicData.sideList[0].id) {
+//                첫번째 진영에 투표한 경우.
+                binding.btnVote1.text = "투표 취소"
+                binding.btnVote2.text = "다시 투표"
+            } else {
+//                두번째 진영에 투표한 경우.
+                binding.btnVote1.text = "다시 투표"
+                binding.btnVote2.text = "투표 취소"
+            }
+
+        } else {
+//            아무데도 투표하지 않은 경우.
+            binding.btnVote1.text = "투표 하기"
+            binding.btnVote2.text = "투표 하기"
+        }
+
     }
 
     fun getTopicDetailFromServer() {
 
-        ServerUtil.getRequestTopicDetail(mContext, mTopicData.id, object : ServerUtil.JsonResponseHandler{
-            override fun onResponse(jsonObj: JSONObject) {
+        ServerUtil.getRequestTopicDetail(
+            mContext,
+            mTopicData.id,
+            object : ServerUtil.JsonResponseHandler {
+                override fun onResponse(jsonObj: JSONObject) {
 
-                val dataObj = jsonObj.getJSONObject("data")
-                val topicObj = dataObj.getJSONObject("topic")
+                    val dataObj = jsonObj.getJSONObject("data")
+                    val topicObj = dataObj.getJSONObject("topic")
 
 //                토론 정보 JSONObjec (topicObj) => TopicData() 형태로 변환
-                val topicData = TopicData.getTopicDataFromJson(topicObj)
+                    val topicData = TopicData.getTopicDataFromJson(topicObj)
 
 //                변환된 객체를, mTopicData로 다시 대입. => UI 반영도 다시 실행.
-                mTopicData = topicData
+                    mTopicData = topicData
 
-                runOnUiThread {
-                    setTopicDataToUi()
+                    runOnUiThread {
+                        setTopicDataToUi()
+                    }
+
+
                 }
-
-
-
-            }
-        })
+            })
     }
 }
